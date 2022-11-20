@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url(./PIZZAS_Fondo.jpg);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    /* background-color: #ebcf31; */
+    color: #060606;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 2rem;
+}
+.buscar_pizza{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.id_pizza{
+    text-align: center;
+    border-radius: 5px;
+    background: red;
+    font-weight: bolder;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 3px black;
+
+
+}
+.boton_buscar{
+    text-align: center;
+    border-radius: 5px;
+    background: red;
+    font-weight: bolder;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 3px black;
+
+}
+.container h1{
+    font-size: 50px;
+    font-weight: bolder;
+}
+.nombre_pizza{
+    border-radius: 1rem 1rem 0px 0px;
+    padding: 2px 5px;
+    background: grey;
+color: rgb(244, 6, 6);
+font-weight: bolder;
+font-size: 30px;
+}
+.precio_pizza{
+    border-radius: 0px 0px 1rem 1rem ;
+    padding: 2px 5px;
+    background: grey;
+
+}
+
+.renderizar_pizza{
+    display: none;
+    flex-direction: column;
+}
+
+.error{
+    display: none;
+    align-items: center;
+    font-weight: lighter;
+    background-color: black;
+    color: white;
+    padding: 2px 3px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.error span{
+    color: red;
+    font-size: 25px;
+}

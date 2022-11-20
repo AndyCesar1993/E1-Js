@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./main.js"></script>
     <title>Js E1</title>
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
+
 <body>
-    <h1>Js Entrega 1</h1>
+
+    <div class="container">
+        <h1>Js Entrega 2</h1>
+        <p class="error">El id <span></span> no corresponde a ningun producto!!!</p>
+
+        <form class="buscar_pizza">
+            <input type="number" class="id_pizza" id="id_pizza" name="id_pizza" required placeholder="Id de Pizza">
+            <button type="submit" class="boton_buscar" id="buscar_pizza" name="buscar_pizza">Buscar Pizza</button>
+        </form>
+
+        <div class="renderizar_pizza">
+            <h2 class="nombre_pizza"></h2>
+            <h3 class="precio_pizza"></h3>
+        </div>
+
+    </div>
+
+
+<script src="./main.js"></script>
+    
 </body>
+
 </html>

@@ -1,23 +1,73 @@
-class Pizza{
-    constructor(id,nombre,ingredientes,precio){
-        this.id=id;
-        this.nombre=nombre;
-        this.ingredientes=ingredientes;
-        this.precio=precio;
-    }
+const formulario = document.querySelector(".buscar_pizza");
+const idInput = document.querySelector(".id_pizza");
+const renderNombrePizza = document.querySelector(".renderizar_pizza h2");
+const renderValorPizza = document.querySelector(".renderizar_pizza h3");
+const errorHtml = document.querySelector(".error span");
+const contenedorError = document.querySelector(".error");
+const contenedorInfoPizza = document.querySelector(".renderizar_pizza");
+
+class Pizza {
+  constructor(id, nombre, ingredientes, precio) {
+    this.id = id;
+    this.nombre = nombre;
+    this.ingredientes = ingredientes;
+    this.precio = precio;
+  }
 }
 
-const pizza=[
-    new Pizza(100,"Napolitana",["muzzarella","tomate","ajo","perejil"],1000),
-    new Pizza(105,"Jamon y morron",["muzzarella","jamon","morron"],1100),
-    new Pizza(110,"Jamon y huevo",["muzzarella","jamon","huevo"], 1300),
-    new Pizza(115,"Fugazzeta",["muzzarella","cebolla"],1000),
-    new Pizza(120,"Muzzarella",["muzzarella",],950),
-    new Pizza(125,"Anchoas",["muzzarella","anchoas","jamon"],1150),
+const pizza = [
+  new Pizza(1,"Napolitana",["muzzarella", "tomate", "ajo", "perejil"],1000),
+  new Pizza(2, "Jamon y morron", ["muzzarella", "jamon", "morron"], 1100),
+  new Pizza(3, "Jamon y huevo", ["muzzarella", "jamon", "huevo"], 1300),
+  new Pizza(4, "Fugazzeta", ["muzzarella", "cebolla"], 1000),
+  new Pizza(5, "Muzzarella", ["muzzarella"], 950),
+  new Pizza(6, "Anchoas", ["muzzarella", "anchoas", "jamon"], 1150),
+];
 
-]
+const getNombrePizza = (pizzaNombre) => {
+  renderNombrePizza.textContent = `Nombre: ${pizzaNombre}`;
+};
+const getValorPizza = (pizzaValor) => {
+  renderValorPizza.textContent = `Valor: $${pizzaValor}`;
+};
 
-//a)  Las pizzas que tengan un id impar. 
+const error =(id)=>{
+  errorHtml.textContent=(` "${id}" `);
+
+}
+
+
+const pizzaToHtml = (input) => {
+  pizza.map((objet)=>{
+   if (idInput.value == objet.id) {
+    getNombrePizza(objet.nombre);
+    getValorPizza(objet.precio);
+    contenedorInfoPizza.style.display="flex";
+  } else{
+    error(idInput.value);
+    contenedorError.style.display="flex";
+  }
+  })
+  
+};
+
+
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
+  pizzaToHtml();
+  formulario.reset();
+});
+
+
+
+
+
+
+
+
+
+/* //a)  Las pizzas que tengan un id impar. 
+
 
 const idImpar= pizza.forEach((pizza)=>{
     if (pizza.id % 2 !==0){
@@ -41,7 +91,4 @@ const listaDePizzas=pizza.map((lista)=>{
 
 const ingredientesPizzas=pizza.map((elemento)=>{
     console.log(`La Pizza de ${elemento.nombre} tiene los siguientes ingredientes: ${elemento.ingredientes}`)
-})
-
-
-
+}) */
