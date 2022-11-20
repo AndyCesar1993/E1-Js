@@ -31,6 +31,8 @@ const getValorPizza = (pizzaValor) => {
   renderValorPizza.textContent = `Valor: $${pizzaValor}`;
 };
 
+//error
+
 const error =(id)=>{
   errorHtml.textContent=(` "${id}" `);
 
