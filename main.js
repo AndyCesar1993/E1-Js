@@ -1,11 +1,3 @@
-const formulario = document.querySelector(".buscar_pizza");
-const idInput = document.querySelector(".id_pizza");
-const renderNombrePizza = document.querySelector(".renderizar_pizza h2");
-const renderValorPizza = document.querySelector(".renderizar_pizza h3");
-const errorHtml = document.querySelector(".error span");
-const contenedorError = document.querySelector(".error");
-const contenedorInfoPizza = document.querySelector(".renderizar_pizza");
-
 class Pizza {
   constructor(id, nombre, ingredientes, precio) {
     this.id = id;
@@ -16,56 +8,13 @@ class Pizza {
 }
 
 const pizza = [
-  new Pizza(1,"Napolitana",["muzzarella", "tomate", "ajo", "perejil"],1000),
-  new Pizza(2, "Jamon y morron", ["muzzarella", "jamon", "morron"], 1100),
-  new Pizza(3, "Jamon y huevo", ["muzzarella", "jamon", "huevo"], 1300),
+  new Pizza(1, "Napolitana", ["muzzarella", "tomate", "ajo", "perejil"], 1000),
+  new Pizza(2, "Jamón y morrón", ["muzzarella", "jamón", "morrón"], 1100),
+  new Pizza(3, "Jamón y huevo", ["muzzarella", "jamón", "huevo"], 1300),
   new Pizza(4, "Fugazzeta", ["muzzarella", "cebolla"], 1000),
   new Pizza(5, "Muzzarella", ["muzzarella"], 950),
-  new Pizza(6, "Anchoas", ["muzzarella", "anchoas", "jamon"], 1150),
+  new Pizza(6, "Anchoas", ["muzzarella", "anchoas", "jamón"], 1150),
 ];
-
-const getNombrePizza = (pizzaNombre) => {
-  renderNombrePizza.textContent = `Nombre: ${pizzaNombre}`;
-};
-const getValorPizza = (pizzaValor) => {
-  renderValorPizza.textContent = `Valor: $${pizzaValor}`;
-};
-
-//error
-
-const error =(id)=>{
-  errorHtml.textContent=(` "${id}" `);
-
-}
-
-
-const pizzaToHtml = (input) => {
-  pizza.map((objet)=>{
-   if (idInput.value == objet.id) {
-    getNombrePizza(objet.nombre);
-    getValorPizza(objet.precio);
-    contenedorInfoPizza.style.display="flex";
-  } else{
-    error(idInput.value);
-    contenedorError.style.display="flex";
-  }
-  })
-  
-};
-
-
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
-  pizzaToHtml();
-  formulario.reset();
-});
-
-
-
-
-
-
-
 
 
 /* //a)  Las pizzas que tengan un id impar. 
@@ -94,3 +43,47 @@ const listaDePizzas=pizza.map((lista)=>{
 const ingredientesPizzas=pizza.map((elemento)=>{
     console.log(`La Pizza de ${elemento.nombre} tiene los siguientes ingredientes: ${elemento.ingredientes}`)
 }) */
+
+
+//Ejercicio 2 Js
+
+const formulario = document.querySelector(".buscar_pizza");
+const idInput = document.querySelector(".id_pizza");
+const renderNombrePizza = document.querySelector(".renderizar_pizza h2");
+const renderValorPizza = document.querySelector(".renderizar_pizza h3");
+const errorHtml = document.querySelector(".error span");
+const contenedorError = document.querySelector(".error");
+const contenedorInfoPizza = document.querySelector(".renderizar_pizza");
+
+
+
+const getNombrePizza = (pizzaNombre) => {
+  renderNombrePizza.textContent = `Nombre: ${pizzaNombre}`;
+};
+const getValorPizza = (pizzaValor) => {
+  renderValorPizza.textContent = `Valor: $${pizzaValor}`;
+};
+
+const error = (id) => {
+  errorHtml.textContent = ` "${id}" `;
+  contenedorInfoPizza.style.display = "none";
+};
+
+const buscarPorId = () => {
+  const pizzaId=pizza.find((pizza) => pizza.id == idInput.value);
+  if (pizzaId) {
+    contenedorInfoPizza.style.display = "flex";
+    contenedorError.style.display = "none";
+    getNombrePizza(pizzaId.nombre);
+    getValorPizza(pizzaId.precio);
+  } else {
+    error(idInput.value);
+      contenedorError.style.display="flex";
+  }
+};
+
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
+  buscarPorId();
+  formulario.reset();
+});
