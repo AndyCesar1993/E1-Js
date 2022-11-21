@@ -65,9 +65,15 @@ const getValorPizza = (pizzaValor) => {
 };
 
 const error = (id) => {
-  errorHtml.textContent = ` "${id}" `;
   contenedorInfoPizza.style.display = "none";
-};
+  if (id.value !== ""){
+    contenedorError.innerHTML = `El id <span>"${id.value}"</span> no corresponde a ningún producto!!!`
+    console.log("ok")
+    }
+   else  contenedorError.textContent = "Se debe ingresar un valor";
+   console.log("no")
+}
+
 
 const buscarPorId = () => {
   const pizzaId=pizza.find((pizza) => pizza.id == idInput.value);
@@ -77,7 +83,7 @@ const buscarPorId = () => {
     getNombrePizza(pizzaId.nombre);
     getValorPizza(pizzaId.precio);
   } else {
-    error(idInput.value);
+    error(idInput);
       contenedorError.style.display="flex";
   }
 };
