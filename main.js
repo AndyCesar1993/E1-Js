@@ -1,19 +1,20 @@
 class Pizza {
-  constructor(id, nombre, ingredientes, precio) {
+  constructor(id, nombre, ingredientes, precio,img) {
     this.id = id;
     this.nombre = nombre;
     this.ingredientes = ingredientes;
     this.precio = precio;
+    this.img = img;
   }
 }
 
 const pizza = [
-  new Pizza(1, "Napolitana", ["muzzarella", "tomate", "ajo", "perejil"], 1000),
-  new Pizza(2, "Jamón y morrón", ["muzzarella", "jamón", "morrón"], 1100),
-  new Pizza(3, "Jamón y huevo", ["muzzarella", "jamón", "huevo"], 1300),
-  new Pizza(4, "Fugazzeta", ["muzzarella", "cebolla"], 1000),
-  new Pizza(5, "Muzzarella", ["muzzarella"], 950),
-  new Pizza(6, "Anchoas", ["muzzarella", "anchoas", "jamón"], 1150),
+  new Pizza(1, "Napolitana", ["muzzarella", "tomate", "ajo", "perejil"], 1000, "./assets/pizzas/napolitana.jpg"),
+  new Pizza(2, "Jamón y morrón", ["muzzarella", "jamón", "morrón"], 1100, "./assets/pizzas/jamon y morron.jpeg"),
+  new Pizza(3, "Jamón, huevo y tomate", ["muzzarella", "jamón", "huevo", "tomate"], 1300, "./assets/pizzas/jamon huevo y tomate.jfif"),
+  new Pizza(4, "Fugazzeta", ["muzzarella", "cebolla"], 1000, "./assets/pizzas/fugazzetta.jfif"),
+  new Pizza(5, "Muzzarella", ["muzzarella"], 950, "./assets/pizzas/muzzarella.jfif"),
+  new Pizza(6, "Anchoas", ["muzzarella", "anchoas", "jamón"], 1150, "./assets/pizzas/Pizza anchoas.webp"),
 ];
 
 
@@ -49,20 +50,23 @@ const ingredientesPizzas=pizza.map((elemento)=>{
 
 const formulario = document.querySelector(".buscar_pizza");
 const idInput = document.querySelector(".id_pizza");
-const renderNombrePizza = document.querySelector(".renderizar_pizza h2");
-const renderValorPizza = document.querySelector(".renderizar_pizza h3");
 const errorHtml = document.querySelector(".error span");
 const contenedorError = document.querySelector(".error");
 const contenedorInfoPizza = document.querySelector(".renderizar_pizza");
 
+const pizzaSave= JSON.parse(localStorage.getItem("pizzaSearch")) || [];
 
+const saveToLocalStorage = (searchPizaa)=>{
+  localStorage.setItem("pizzaSearch", JSON.stringify(searchPizaa));
+ 
+}
 
-const getNombrePizza = (pizzaNombre) => {
-  renderNombrePizza.textContent = `Nombre: ${pizzaNombre}`;
-};
-const getValorPizza = (pizzaValor) => {
-  renderValorPizza.textContent = `Valor: $${pizzaValor}`;
-};
+const renderHtml = () =>{ 
+  contenedorInfoPizza.innerHTML = `<img class="imagen_pizza" src="${pizzaSave.img}" alt="">
+  <h2 class="nombre_pizza">Nombre: <span>${pizzaSave.nombre}</span></h2>
+  <p class="ingredientes_pizza">Ingrediente:  <span>  ${pizzaSave.ingredientes}</span> </p>
+  <h3 class="precio_pizza">Precio: $${pizzaSave.precio}</h3>`;
+}
 
 const error = (id) => {
   contenedorInfoPizza.style.display = "none";
@@ -74,14 +78,14 @@ const error = (id) => {
    console.log("no")
 }
 
-
+renderHtml();
 const buscarPorId = () => {
   const pizzaId=pizza.find((pizza) => pizza.id == idInput.value);
   if (pizzaId) {
-    contenedorInfoPizza.style.display = "flex";
+    contenedorInfoPizza.style.display= "flex";
     contenedorError.style.display = "none";
-    getNombrePizza(pizzaId.nombre);
-    getValorPizza(pizzaId.precio);
+    saveToLocalStorage(pizzaId);
+    window.location.reload();
   } else {
     error(idInput);
       contenedorError.style.display="flex";
@@ -89,7 +93,7 @@ const buscarPorId = () => {
 };
 
 formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault(); 
   buscarPorId();
-  formulario.reset();
+  formulario.reset(); 
 });
