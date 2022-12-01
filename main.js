@@ -58,34 +58,39 @@ const pizzaSave= JSON.parse(localStorage.getItem("pizzaSearch")) || [];
 
 const saveToLocalStorage = (searchPizaa)=>{
   localStorage.setItem("pizzaSearch", JSON.stringify(searchPizaa));
- 
 }
 
-const renderHtml = () =>{ 
-  contenedorInfoPizza.innerHTML = `<img class="imagen_pizza" src="${pizzaSave.img}" alt="">
-  <h2 class="nombre_pizza">Nombre: <span>${pizzaSave.nombre}</span></h2>
-  <p class="ingredientes_pizza">Ingrediente:  <span>  ${pizzaSave.ingredientes}</span> </p>
-  <h3 class="precio_pizza">Precio: $${pizzaSave.precio}</h3>`;
+const iniPag=()=>{
+  if(pizzaSave.nombre ){
+    contenedorInfoPizza.style.display= "flex";
+    renderHtml(pizzaSave.img, pizzaSave.nombre, pizzaSave.ingredientes, pizzaSave.precio);
+  }
 }
+
+const renderHtml = (img, nombre, ingredientes, precio) =>{ 
+  contenedorInfoPizza.innerHTML = `<img class="imagen_pizza" src="${img}" alt="">
+  <h2 class="nombre_pizza">Nombre: <span>${nombre}</span></h2>
+  <p class="ingredientes_pizza">Ingrediente:  <span>  ${ingredientes}</span> </p>
+  <h3 class="precio_pizza">Precio: $${precio}</h3>`;
+}
+
+iniPag();
 
 const error = (id) => {
   contenedorInfoPizza.style.display = "none";
   if (id.value !== ""){
     contenedorError.innerHTML = `El id <span>"${id.value}"</span> no corresponde a ningún producto!!!`
-    console.log("ok")
     }
    else  contenedorError.textContent = "Se debe ingresar un valor";
-   console.log("no")
 }
 
-renderHtml();
 const buscarPorId = () => {
   const pizzaId=pizza.find((pizza) => pizza.id == idInput.value);
   if (pizzaId) {
     contenedorInfoPizza.style.display= "flex";
     contenedorError.style.display = "none";
     saveToLocalStorage(pizzaId);
-    window.location.reload();
+    renderHtml(pizzaId.img, pizzaId.nombre, pizzaId.ingredientes, pizzaId.precio);
   } else {
     error(idInput);
       contenedorError.style.display="flex";

@@ -54,7 +54,7 @@ body{
 }
 
 .renderizar_pizza{
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: red;
     padding: 10px;
